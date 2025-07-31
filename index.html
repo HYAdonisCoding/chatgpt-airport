@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
+<html lang="zh-CN"><script src="chrome-extension://jnlgamecbpmbajjfhmmmlhejkemejdma/static/js/inpage.js"></script><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>机场推荐</title>
@@ -118,6 +116,13 @@
     
   }
 ];
+/*************  ✨ Windsurf Command ⭐  *************/
+  /**
+   * 生成机场信息的表格和卡片，用于渲染 HTML
+   * @async
+   * @throws {Error} 加载机场信息失败
+   */
+/*******  ad6257e1-20b2-4c4c-882a-59c13dbc04e7  *******/
     async function loadAirportTable() {
       try {
 
@@ -177,17 +182,14 @@
       }
     }
 
-    // 初始化主题
-    window.onload = function () {
+    // 初始化主题，使用DOMContentLoaded事件
+    document.addEventListener('DOMContentLoaded', function () {
       const savedTheme = localStorage.getItem('theme') || 'dark';
       document.body.setAttribute('data-theme', savedTheme);
       setThemeIcon(savedTheme);
-      setTimeout(()=>{
-        loadAirportTable();
-      }); // 延时加载表格，确保样式先加载
-      
-      
-    };
+      console.log("🚀 正在加载机场列表...");
+      // loadAirportTable();
+    });
   </script>
   <style>
     body {
@@ -408,12 +410,21 @@
       }
     }
   </style>
-</head>
-<body data-theme="dark">
+<style id="monica-reading-highlight-style">
+        .monica-reading-highlight {
+          animation: fadeInOut 1.5s ease-in-out;
+        }
+
+        @keyframes fadeInOut {
+          0%, 100% { background-color: transparent; }
+          30%, 70% { background-color: rgba(2, 118, 255, 0.20); }
+        }
+      </style></head>
+<body data-theme="dark" monica-id="ofpnmcalabcbjgholdjcjblkibolbppb" monica-version="7.9.6">
 
   <div style="text-align:right; margin-bottom:1rem;">
     <button onclick="toggleTheme()" id="theme-toggle-btn" style="padding: 0.5rem 1rem; border: none; border-radius: 6px; background-color: #ffffff33; color: #fff; cursor: pointer; font-weight: 600;">
-      <span id="theme-icon">🌙</span> 切换模式
+      <span id="theme-icon">☀️</span> 切换模式
     </button>
   </div>
 
@@ -424,11 +435,103 @@
   </p>
   <blockquote>最近整理了一批高速稳定、价格亲民、完美支持ChatGPT和流媒体解锁的优质机场，适合日常科学上网、远程办公与内容解锁需求，欢迎参考体验 🎁</blockquote>
 
-  <div id="airport-card-container"></div>
-  <div id="airport-table-container" style="overflow-x:auto; margin-bottom:2rem; max-width:100vw;"></div>
+  <div id="airport-card-container"><section class="card">
+            <h3><a href="https://lanfanz.cc/auth/register?code=E1I7" target="_blank" style="color:#7ed6df; text-decoration: none;">蓝帆云机场</a> <span style="color:#f1c40f; font-weight:bold; font-size:2rem;">★★★★★</span></h3>
+            <div class="tagline">BGP中转 + IPLC 专线节点 SSR / V2ray 机场</div>
+            <p>蓝帆云是一家 2024 年新开的机场，支持 ShadowsocksR 和 Vmess 多种协议。蓝帆云解锁能力一般，节点数量很多，覆盖国内常用地区，没有冷门地区节点。</p>
+            <div class="price">
+              <span>入门版：￥11.99/月，50G流量。</span>
+            </div>
+            <p class="note">🎉 年费7折优惠代码：lanfan 请购买时验证使用。在新疆省无法使用！请勿购买</p>
+            <a href="https://lanfanz.cc/auth/register?code=E1I7" class="link-btn" target="_blank">访问官网</a>
+          </section><section class="card">
+            <h3><a href="https://jump.riolu.work/register?aff=UNlKm79n" target="_blank" style="color:#7ed6df; text-decoration: none;">Riolu 精灵学院</a> <span style="color:#f1c40f; font-weight:bold; font-size:2rem;">★★★★☆</span></h3>
+            <div class="tagline">SS / Vless / Trojan 多协议，小白友好</div>
+            <p>2023 年开业，支持直连+中转，多协议自选，客户端定制化体验。</p>
+            <div class="price">
+              <span>Iron：￥6/月，30G/月（季付￥15）</span><span>Iron Plus：￥12/月，120G/月（年付￥125）</span><span>不限时流量Small：￥60，永久 400G 流量</span>
+            </div>
+            <p class="note">新用户优惠码： New2025（九五折，季付、半年付、年付可用，不限时不可用）</p>
+            <a href="https://jump.riolu.work/register?aff=UNlKm79n" class="link-btn" target="_blank">访问官网</a>
+          </section><section class="card">
+            <h3><a href="https://www.avatargpt.xyz/register?aff=9D4SamHzdl" target="_blank" style="color:#7ed6df; text-decoration: none;">阿拉丁机场</a> <span style="color:#f1c40f; font-weight:bold; font-size:2rem;">★★★★★</span></h3>
+            <div class="tagline">SS 协议，奈飞免登录，中转性价比高</div>
+            <p>2024 年开业，支持多地区节点和个性化定制。Netflix、Disney+、ChatGPT 支持优良。</p>
+            <div class="price">
+              <span>入门套餐：￥8/月，50G/月</span><span>轻量套餐：￥15/月，100G/月</span>
+            </div>
+            
+            <a href="https://www.avatargpt.xyz/register?aff=9D4SamHzdl" class="link-btn" target="_blank">访问官网</a>
+          </section><section class="card">
+            <h3><a href="https://www.nutbit.net/#/register?code=ITvJagqb" target="_blank" style="color:#7ed6df; text-decoration: none;">Nutbit 坚果机场</a> <span style="color:#f1c40f; font-weight:bold; font-size:2rem;">★★★★☆</span></h3>
+            <div class="tagline">SS 协议，支持多平台</div>
+            <p>2022 年开业，稳定佛系，全节点公网中转。支持 Netflix、Disney+、TikTok 和 ChatGPT。</p>
+            <div class="price">
+              <span>开心果：￥15/季度，50G/月（不常见）</span><span>核桃：￥15/月，100G/月</span><span>杏仁：￥24/月，200G/月</span>
+            </div>
+            <p class="note"><s>🎁 五一优惠：全套餐 8 折（除开心果），结账输入优惠码：51</s></p>
+            <a href="https://www.nutbit.net/#/register?code=ITvJagqb" class="link-btn" target="_blank">访问官网</a>
+          </section><section class="card">
+            <h3><a href="https://1s.bigmeok.me/user#/register?code=hrBKYct6" target="_blank" style="color:#7ed6df; text-decoration: none;">Bigme 大米加速</a> <span style="color:#f1c40f; font-weight:bold; font-size:2rem;">★★★★★</span></h3>
+            <div class="tagline">SS / Trojan / Hysteria 2 多协议，流媒体解锁好</div>
+            <p>2023 年开业，主打性价比，支持 Netflix、Disney+、TikTok 和 ChatGPT。不限时长按量付费，全节点公网中转。</p>
+            <div class="price">
+              <span>超小：￥6/月，45G/月（年付￥57）</span><span>中：￥10/季度，120G/月（年付￥96）</span><span>不限时流量Small：￥55，永久 400G 流量</span>
+            </div>
+            
+            <a href="https://1s.bigmeok.me/user#/register?code=hrBKYct6" class="link-btn" target="_blank">访问官网</a>
+          </section><section class="card">
+            <h3><a href="https://inv02.fatcatcloud.cc/register?aff=wzxvsdIy" target="_blank" style="color:#7ed6df; text-decoration: none;">FATCAT 肥猫云机场</a> <span style="color:#f1c40f; font-weight:bold; font-size:2rem;">★★★★☆</span></h3>
+            <div class="tagline">Trojan 协议，专线稳定，团队海外</div>
+            <p>2023 年成立，IEPL 专线节点，支持多流媒体和 ChatGPT，年付套餐优惠大。</p>
+            <div class="price">
+              <span>肥猫小包：￥72/年，60G/月（爆款限时热销）</span><span>基础版：￥20/月，200G/月（3年付享6折）</span>
+            </div>
+            <p class="note"><s>🎉 51 活动至 5.14：全场 8 折，优惠码：happy51</s></p>
+            <a href="https://inv02.fatcatcloud.cc/register?aff=wzxvsdIy" class="link-btn" target="_blank">访问官网</a>
+          </section></div>
+  <div id="airport-table-container" style="overflow-x:auto; margin-bottom:2rem; max-width:100vw;"><table style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr>
+              <th>名称</th>
+              <th>协议</th>
+              <th>月费</th>
+              <th>流量</th>
+              <th>年付折扣</th>
+              <th>访问</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>蓝帆云机场</td>
+                <td>Hysteria 2, SSR, V2ray</td>
+                <td>￥11.99/月起</td>
+                <td>50G/月起</td>
+                <td>7折</td>
+                <td><a href="https://lanfanz.cc/auth/register?code=E1I7" target="_blank">官网</a></td>
+              </tr>
+              <tr>
+                <td>Riolu 精灵学院</td>
+                <td>SS, Trojan, Hysteria 2</td>
+                <td>￥6/月起</td>
+                <td>30G/月起</td>
+                <td>95折</td>
+                <td><a href="https://jump.riolu.work/register?aff=UNlKm79n" target="_blank">官网</a></td>
+              </tr>
+              <tr>
+                <td>Bigme 大米加速</td>
+                <td>Trojan, Hysteria 2, Anytls</td>
+                <td>￥6/月起</td>
+                <td>45G/月起</td>
+                <td>8折</td>
+                <td><a href="https://1s.bigmeok.me/user#/register?code=hrBKYct6" target="_blank">官网</a></td>
+              </tr>
+          </tbody>
+        </table></div>
   <blockquote>
     综合来看，<strong class="highlight">若你追求极致性价比、用量适中</strong>，那 Bigme 大米加速的超小套餐无疑是“神中神”——每月仅 4.75 元，就能轻松畅享全球网络，虽流量仅 45G，但足以满足日常ChatGPT与轻量访问所需。
   </blockquote>
 
-</body>
-</html>
+
+<div id="monica-content-root" class="monica-widget" style="pointer-events: auto;"></div></body></html>
