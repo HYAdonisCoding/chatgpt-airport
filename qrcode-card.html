@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR Code Card — 机场推荐</title>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    background: #05050d;
+    background-image:
+      radial-gradient(ellipse 120% 50% at 30% 0%, rgba(147, 51, 234, 0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 100% 40% at 70% 100%, rgba(6, 182, 212, 0.04) 0%, transparent 60%);
+    font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    padding: 24px;
+  }
+
+  /* ── card ── */
+  .card {
+    position: relative; width: 600px; max-width: 100%;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(147, 51, 234, 0.12);
+    border-radius: 24px;
+    padding: 48px 40px 40px;
+    text-align: center;
+    box-shadow:
+      0 0 0 1px rgba(147, 51, 234, 0.06),
+      0 4px 40px rgba(147, 51, 234, 0.08),
+      0 20px 80px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+  }
+
+  /* ambient orbs */
+  .card::before {
+    content: ''; position: absolute; top: -60px; left: -80px;
+    width: 220px; height: 220px; border-radius: 50%;
+    background: #2e1065; filter: blur(120px); opacity: 0.1;
+    pointer-events: none;
+  }
+  .card::after {
+    content: ''; position: absolute; bottom: -80px; right: -60px;
+    width: 200px; height: 200px; border-radius: 50%;
+    background: #083344; filter: blur(110px); opacity: 0.1;
+    pointer-events: none;
+  }
+
+  /* ── header ── */
+  .header { position: relative; z-index: 1; margin-bottom: 32px; }
+  .logo-row {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    margin-bottom: 8px;
+  }
+  .logo-img {
+    width: 40px; height: 40px; border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(147, 51, 234, 0.3);
+  }
+  .brand-name {
+    font-size: 1.1rem; font-weight: 700; color: #f3f4f6;
+    letter-spacing: 0.02em;
+  }
+  .brand-tag {
+    font-size: 0.75rem; color: #9ca3af; letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* ── QR container ── */
+  .qr-wrap {
+    position: relative; z-index: 1;
+    display: inline-block;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 16px;
+    box-shadow:
+      0 0 0 2px rgba(147, 51, 234, 0.18),
+      0 0 0 6px rgba(147, 51, 234, 0.06),
+      0 8px 40px rgba(147, 51, 234, 0.15);
+    margin-bottom: 28px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .qr-wrap:hover {
+    transform: scale(1.02);
+    box-shadow:
+      0 0 0 2px rgba(147, 51, 234, 0.3),
+      0 0 0 6px rgba(147, 51, 234, 0.1),
+      0 12px 50px rgba(147, 51, 234, 0.25);
+  }
+  .qr-img {
+    display: block; width: 240px; height: 240px;
+    border-radius: 8px;
+  }
+
+  /* corner accents */
+  .corner-dot {
+    position: absolute; width: 8px; height: 8px; border-radius: 2px;
+    background: #c084fc; box-shadow: 0 0 8px rgba(192, 132, 252, 0.6);
+  }
+  .corner-dot.tl { top: -4px; left: -4px; }
+  .corner-dot.tr { top: -4px; right: -4px; }
+  .corner-dot.bl { bottom: -4px; left: -4px; }
+  .corner-dot.br { bottom: -4px; right: -4px; }
+
+  /* ── URL text ── */
+  .url-section { position: relative; z-index: 1; margin-bottom: 20px; }
+  .url-display {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 20px;
+    background: rgba(147, 51, 234, 0.06);
+    border: 1px solid rgba(147, 51, 234, 0.1);
+    border-radius: 12px;
+    font-size: 0.85rem; font-family: 'SF Mono', Menlo, Monaco, 'Consolas', monospace;
+    color: #c084fc; letter-spacing: 0.02em;
+    word-break: break-all;
+  }
+  .url-icon { opacity: 0.7; }
+
+  /* ── CTA ── */
+  .cta { position: relative; z-index: 1; margin-bottom: 24px; }
+  .cta-text {
+    font-size: 0.95rem; font-weight: 600; color: #f3f4f6;
+    letter-spacing: 0.04em;
+  }
+  .cta-sub {
+    font-size: 0.72rem; color: #6b7280; margin-top: 4px;
+  }
+  .pulse-dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: #06b6d4; box-shadow: 0 0 8px rgba(6, 182, 212, 0.6);
+    margin: 0 6px 2px; animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* ── features row ── */
+  .features { position: relative; z-index: 1; display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; }
+  .feat {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 0.72rem; color: #9ca3af;
+  }
+  .feat-icon { font-size: 0.85rem; }
+  .feat-divider {
+    width: 1px; background: rgba(255,255,255,0.06); height: 20px; align-self: center;
+  }
+
+  /* ── divider ── */
+  .divider {
+    position: relative; z-index: 1;
+    width: 60px; height: 1px; margin: 20px auto;
+    background: linear-gradient(90deg, transparent, rgba(147, 51, 234, 0.3), transparent);
+  }
+
+  /* ── save button ── */
+  .save-btn {
+    position: relative; z-index: 1;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 24px;
+    background: linear-gradient(135deg, #9333ea 0%, #7c3aed 100%);
+    color: #fff; border: none; border-radius: 10px;
+    font-size: 0.82rem; font-weight: 600; cursor: pointer;
+    letter-spacing: 0.03em;
+    box-shadow: 0 4px 20px rgba(147, 51, 234, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .save-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 28px rgba(147, 51, 234, 0.45);
+  }
+
+  /* ── responsive ── */
+  @media (max-width: 640px) {
+    .card { padding: 36px 20px 28px; border-radius: 20px; }
+    .qr-img { width: 180px; height: 180px; }
+    .qr-wrap { padding: 12px; border-radius: 16px; }
+    .url-display { font-size: 0.72rem; padding: 8px 14px; }
+    .features { gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card" id="card">
+  <!-- header -->
+  <div class="header">
+    <div class="logo-row">
+      <img class="logo-img" src="favicon.png" alt="logo" onerror="this.style.display='none'">
+      <div>
+        <div class="brand-name">✈ 机场推荐</div>
+        <div class="brand-tag">Curated Proxy Services</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QR code -->
+  <div class="qr-wrap">
+    <div class="corner-dot tl"></div>
+    <div class="corner-dot tr"></div>
+    <div class="corner-dot bl"></div>
+    <div class="corner-dot br"></div>
+    <img class="qr-img" src="qrcode.png" alt="QR Code for airport recommendation site">
+  </div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <div class="cta-text"><span class="pulse-dot"></span>扫描二维码 立即访问</div>
+    <div class="cta-sub">SCAN TO VISIT</div>
+  </div>
+
+  <!-- URL -->
+  <div class="url-section">
+    <div class="url-display">
+      <span class="url-icon">🔗</span>
+      <span>eason-yanyun.github.io/airport</span>
+    </div>
+  </div>
+
+  <!-- divider -->
+  <div class="divider"></div>
+
+  <!-- features -->
+  <div class="features">
+    <div class="feat">
+      <span class="feat-icon">🔍</span>
+      <span>实测筛选</span>
+    </div>
+    <div class="feat-divider"></div>
+    <div class="feat">
+      <span class="feat-icon">💎</span>
+      <span>专线节点</span>
+    </div>
+    <div class="feat-divider"></div>
+    <div class="feat">
+      <span class="feat-icon">🔄</span>
+      <span>持续更新</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// One-click save card as PNG
+const card = document.getElementById('card');
+const img = card.querySelector('.qr-img');
+
+img.onload = () => {
+  // Add a save button after the card loads
+  const btn = document.createElement('button');
+  btn.className = 'save-btn';
+  btn.textContent = '💾 保存为图片';
+  btn.style.cssText = 'display:block;margin:0 auto;margin-top:20px;';
+  btn.onclick = async () => {
+    btn.textContent = '⏳ 生成中...';
+    btn.disabled = true;
+
+    // Use html2canvas if available, otherwise use screenshot hint
+    if (typeof html2canvas !== 'undefined') {
+      const canvas = await html2canvas(card, {
+        scale: 2,
+        backgroundColor: '#05050d',
+        useCORS: true,
+        allowTaint: true,
+      });
+      const link = document.createElement('a');
+      link.download = 'airport-qrcode-card.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      btn.textContent = '✅ 已保存';
+    } else {
+      // Fallback: tell user to screenshot
+      alert('请使用 Command+Shift+4 (macOS) 或 Win+Shift+S (Windows) 截图保存卡片');
+      btn.textContent = '💾 保存为图片';
+    }
+    btn.disabled = false;
+  };
+  document.body.appendChild(btn);
+};
+
+// Dynamic load html2canvas for better export
+const script = document.createElement('script');
+script.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+script.onload = () => { /* ready */ };
+script.onerror = () => { /* will fall back to screenshot hint */ };
+document.head.appendChild(script);
+</script>
+
+</body>
+</html>
